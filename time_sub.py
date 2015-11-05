@@ -7,9 +7,20 @@ import zmq
 if __name__ == "__main__":
     ctx = zmq.Context.instance()
     subscriber = ctx.socket(zmq.SUB)
+
+    # time synchronization source
     subscriber.connect("tcp://192.168.0.50:5563")
+
+    # helpful when you run the time_server.py locally
+    subscriber.connect("tcp://localhost:5563")
+
+    # messages send from the time source
     subscriber.setsockopt(zmq.SUBSCRIBE, b"time_speedup")
     subscriber.setsockopt(zmq.SUBSCRIBE, b"time")
+
+    # if you want to receive messages from other sources too:
+    subscriber.connect("tcp://192.168.0.51:5563")  # MPEC
+    subscriber.setsockopt(zmq.SUBSCRIBE, b"awaria")
 
     time_speedup = 1
 
