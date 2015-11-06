@@ -72,6 +72,7 @@ if __name__ == "__main__":
                     "{}".format(t_zco).encode("utf-8"),
                 ], zmq.NOBLOCK)
 
+            print("[{}] {}".format(address, content))
 
         except KeyboardInterrupt:
             print("Terminating")
