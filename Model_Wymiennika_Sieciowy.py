@@ -31,7 +31,7 @@ t_zco = 20.0
 if __name__ == "__main__":
     ctx = zmq.Context.instance()
     publisher = ctx.socket(zmq.PUB)
-    publisher.bind("tcp:192.168.0.52:5563")
+    publisher.bind("tcp://192.168.0.52:5563")
     
     subscriber = ctx.socket(zmq.SUB)
     subscriber.connect("tcp://192.168.0.50:5563")
