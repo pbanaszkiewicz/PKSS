@@ -28,3 +28,15 @@ for line in fileContent:
 
 #po zakonczeniu petli w liscie myData znajduje sie wektor danych  
 print myData
+
+#eksport do .txt np. dla Matlaba
+matlabFile = open('data/example.txt','w')
+for i in myData:
+  matlabFile.write(str(i))
+  matlabFile.write('\n')
+  
+#CO DALEJ W MATLABIE Z TYM?
+#A TYLE:
+#   fileID = fopen('data\example.txt','r');
+#   A = fscanf(fileID,'%d')  %'%f' jesli czytamy float!!!
+#   %i mamy iscie piekny wektor
