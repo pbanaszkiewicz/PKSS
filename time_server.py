@@ -1,5 +1,4 @@
 # coding: utf-8
-import datetime
 import time
 import sys
 
@@ -11,7 +10,7 @@ if __name__ == "__main__":
     publisher = ctx.socket(zmq.PUB)
     publisher.bind("tcp://*:5563")
 
-    time_speedup = 1
+    time_speedup = 30
     runtime = 0
 
     while True:
@@ -19,11 +18,11 @@ if __name__ == "__main__":
             publisher.send_multipart([
                 b"time_speedup",
                 "{}".format(time_speedup).encode("utf-8"),
-            ])
+            ], zmq.NOBLOCK)
             publisher.send_multipart([
                 b"time",
                 "{}".format(runtime).encode("utf-8"),
-            ])
+            ], zmq.NOBLOCK)
 
             runtime += 1
             time.sleep(1 / time_speedup)
@@ -36,4 +35,3 @@ if __name__ == "__main__":
             else:
                 time_speedup = int(input("Select time speedup: "))
                 assert time_speedup > 0
-

@@ -22,7 +22,9 @@ if __name__ == "__main__":
 
     # if you want to receive messages from other sources too:
     subscriber.connect("tcp://192.168.0.51:5563")  # MPEC
-    subscriber.setsockopt(zmq.SUBSCRIBE, b"awaria")
+    # subscriber.setsockopt(zmq.SUBSCRIBE, b"awaria")
+    subscriber.setsockopt(zmq.SUBSCRIBE, b"t_o")
+    subscriber.setsockopt(zmq.SUBSCRIBE, b"przeplyw_maksymalny")
 
     # publish information about clock desynchronization
     publisher = ctx.socket(zmq.PUB)
@@ -59,11 +61,11 @@ if __name__ == "__main__":
                         "Awaria!!!".encode("utf-8"),
                     ], zmq.NOBLOCK)  # non-blocking: won't block the while loop
 
-                    print("[{}] {}".format("ERROR", "Zglaszam awarie"))
+                    print("[{}] {}, {} vs {}".format("ERROR", "Zglaszam awarie", clock, clock_msg))
 
             print("[{}] {}".format(address, content))
     
-            time.sleep(0.5 / time_speedup)
+            # time.sleep(0.5 / time_speedup)
 
         except KeyboardInterrupt:
             print("Terminating")
